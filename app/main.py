@@ -8,7 +8,9 @@ def main():
     # Uncomment this to pass the first stage
     
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
-    server_socket.accept() # wait for client
+    host_address, port = server_socket.accept() # wait for client
+    print(host_address, port)
+    
 
 if __name__ == "__main__":
     main()
