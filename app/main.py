@@ -10,16 +10,11 @@ class RESPString:
         return f"+{self.s}\r\n"
 
 def main():
-    # You can use print statements as follows for debugging, they'll be visible when running tests.
-    print("Logs from your program will appear here!")
-
-    # Uncomment this to pass the first stage
-    
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
-    client, _ = server_socket.accept() # wait for client
-    resp = RESPString("PONG")
-    client.send(resp.as_simple_string().encode())
-    server_socket.close()
+    while True:
+        client_socket, _ = server_socket.accept() # wait for client
+        resp = RESPString("PONG")
+        client_socket.send(resp.as_simple_string().encode())
     
     
 
