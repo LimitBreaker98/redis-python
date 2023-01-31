@@ -14,7 +14,7 @@ def main():
     client_connection, _ = server_socket.accept() # accepts a single client connection.
     response_string = RESPString("Pong").as_simple_string()
 
-    while server_socket.recv(1024):  # While the server receives data from the client connection.
+    while client_connection.recv(1024):  # While the server receives data from the client connection.
         client_connection.send(response_string.encode())
     server_socket.close()
 
