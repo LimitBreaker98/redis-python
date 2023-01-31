@@ -13,7 +13,9 @@ def main():
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
     server_socket.settimeout(1.0)
     timed_out = False
+    times = 0
     while not timed_out:
+        times += 1
         try:
             client_socket, _ = server_socket.accept() # wait for client
         except socket.timeout:
@@ -21,7 +23,8 @@ def main():
             timed_out = True
         else:
             resp = RESPString("PONG")
-        client_socket.send(resp.as_simple_string().encode())
+            client_socket.send(resp.as_simple_string().encode())
+    print(f"out at: {timed_out}")
 
 
 if __name__ == "__main__":
