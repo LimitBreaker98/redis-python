@@ -24,7 +24,7 @@ def main():
         else:
             resp = RESPString("PONG")
             client_socket.send(resp.as_simple_string().encode())
-    print(f"out at: {timed_out}")
+    print(f"out at: {times}")
 
 
 if __name__ == "__main__":
