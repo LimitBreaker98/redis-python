@@ -16,9 +16,10 @@ def process_connection(client_connection):
     while True:
         try:
             client_connection.recv(1024) # The server receives data from the client connection.
-            client_connection.send(RESP_STR)
+            client_connection.send(RESP_STR.encode())
         except ConnectionError:
             break
+
 def main():
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
     while True:
