@@ -26,7 +26,7 @@ def main():
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
     while True:
         client_connection, _ = server_socket.accept() # main waits for a new client connection.
-        threading.Thread(target=process_connection, args=(client_connection,)).start() # new thread is created to process the new connection, and we start it.
+        threading.Thread(target=process_connection, args=(client_connection,_)).start() # new thread is created to process the new connection, and we start it.
 
 
 if __name__ == "__main__":
