@@ -13,21 +13,13 @@ class RESPString:
 RESP_STR = RESPString("PONG").as_simple_string()
 
 def process_connection(client_connection):
-    while True:
-        try:
-            client_connection.recv(1024):  # The server receives data from the client connection.
-            client_connection.send(RESP_STR.encode())
-        except ConnectionError:
-            break
-
-
-
+    while client_connection.recv(1024): # The server receives data from the client connection.
+        client_connection.send(RESP_STR)
 def main():
     server_socket = socket.create_server(("localhost", 6379), reuse_port=True)
     while True:
         client_connection, _ = server_socket.accept() # main waits for a new client connection.
-        threading.Thread(target=process_connection, args=(client_connection,_)).start() # new thread is created to process the new connection, and we start it.
-
+        threading.Thread(target=process_connection, args=(client_connection,)).start() # new thread is created to process the new connection, and we start it.
 
 if __name__ == "__main__":
     main()
