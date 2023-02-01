@@ -1,0 +1,6 @@
+while True:
+        try:
+            client_connection.recv(1024):  # The server receives data from the client connection.
+            client_connection.send(RESP_STR.encode())
+        except ConnectionError:
+            break
