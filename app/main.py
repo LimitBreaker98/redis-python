@@ -33,7 +33,7 @@ def get_cmd_response(req_RESP_str):
 def process_connection(client_connection: socket):
     while True:
         try:
-            req_RESP_str = RESPString(client_connection.recv(1024).decode()) # The server receives data from the client connection.
+            req_RESP_str = client_connection.recv(1024).decode() # The server receives data from the client connection.
             
             formatted_response = get_cmd_response(req_RESP_str)
             
