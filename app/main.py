@@ -27,7 +27,7 @@ def get_cmd_response(req_RESP_str: RESPString):
     cmd = req_list[2]
 
     if cmd.lower() == "echo":
-        return str(req_RESP_str).partition(cmd)
+        return str(req_RESP_str).partition(cmd)[2]
     elif cmd == "ping":
         return PING_RESP_STR
 
@@ -37,6 +37,7 @@ def process_connection(client_connection: socket):
             req_RESP_str = RESPString(client_connection.recv(1024).decode()) # The server receives data from the client connection.
             
             formatted_response = get_cmd_response(req_RESP_str)
+            
             
             client_connection.send(formatted_response.encode())
         except ConnectionError:
