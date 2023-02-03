@@ -23,6 +23,7 @@ PING_RESP_STR = RESPString("PONG").str_as_simple_string()
 
 def get_cmd_response(req_RESP_str: RESPString):
     req_list = req_RESP_str.bulk_str_to_list()
+    print(req_list)
     cmd = req_list[2]
 
     if cmd.lower() == "echo":
