@@ -12,10 +12,11 @@ class RESPString:
 
 RESP_STR = RESPString("PONG").as_simple_string()
 
-def process_connection(client_connection):
+def process_connection(client_connection: socket):
     while True:
         try:
-            client_connection.recv(1024) # The server receives data from the client connection.
+            request_str = client_connection.recv(1024).decode() # The server receives data from the client connection.
+            print(request_str)
             client_connection.send(RESP_STR.encode())
         except ConnectionError:
             break
