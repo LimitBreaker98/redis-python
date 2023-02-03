@@ -38,7 +38,7 @@ def process_connection(client_connection: socket):
             
             formatted_response = get_cmd_response(req_RESP_str)
 
-            print(r"{formatted_response}")
+            print(formatted_response)
             
             
             client_connection.send(formatted_response.encode())
