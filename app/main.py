@@ -21,9 +21,12 @@ class RESPString:
 
 PING_RESP_STR = RESPString("PONG").str_as_simple_string()
 
-def get_cmd_response(cmd, args):
-    if cmd == "echo":
-        return RESPString("\r\n".join(args)).str_as_bulk_string()
+def get_cmd_response(cmd, args, req_RESP_str):
+    req_list = req_RESP_str.bulk_str_to_list()
+    cmd = req_list[2]
+
+    if cmd.lower() == "echo":
+        return req_RESP_str.partition(cmd)
     elif cmd == "ping":
         return PING_RESP_STR
 
@@ -31,12 +34,8 @@ def process_connection(client_connection: socket):
     while True:
         try:
             req_RESP_str = RESPString(client_connection.recv(1024).decode()) # The server receives data from the client connection.
-            print(req_RESP_str)
-            req_list = req_RESP_str.bulk_str_to_list()
-            print(req_list)
-            cmd, args = req_list[2].lower(), req_list[4::2]
             
-            formatted_response = get_cmd_response(cmd, args)
+            formatted_response = get_cmd_response(req_RESP_str)
             
             client_connection.send(formatted_response.encode())
         except ConnectionError:
