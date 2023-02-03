@@ -10,13 +10,14 @@ class RESPString:
     def as_simple_string(self) -> str:
         return f"+{self.s}\r\n"
 
-RESP_STR = RESPString("PONG").as_simple_string()
+PING_RESP_STR = RESPString("PONG").as_simple_string()
 
 def process_connection(client_connection: socket):
     while True:
         try:
-            request_str = client_connection.recv(1024).decode() # The server receives data from the client connection.
-            print(request_str)
+            request_RESP_str = client_connection.recv(1024).decode() # The server receives data from the client connection.
+            req_list = request_RESP_str.split("\r\n")
+            print(req_list)
             client_connection.send(RESP_STR.encode())
         except ConnectionError:
             break
