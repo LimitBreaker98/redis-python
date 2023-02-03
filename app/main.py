@@ -13,6 +13,10 @@ class RESPString:
         return self.s.split("\r\n")
     def str_as_bulk_string(self) -> str:
         return self.s
+    def __str__(self):
+        return self.s
+    def __repr__(self):
+        return self.s
 
 
 PING_RESP_STR = RESPString("PONG").str_as_simple_string()
