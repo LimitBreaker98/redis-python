@@ -21,7 +21,7 @@ class RESPString:
 
 PING_RESP_STR = RESPString("PONG").str_as_simple_string()
 
-def get_cmd_response(req_RESP_str):
+def get_cmd_response(req_RESP_str: RESPString):
     req_list = req_RESP_str.bulk_str_to_list()
     cmd = req_list[2]
 
@@ -33,7 +33,7 @@ def get_cmd_response(req_RESP_str):
 def process_connection(client_connection: socket):
     while True:
         try:
-            req_RESP_str = client_connection.recv(1024).decode() # The server receives data from the client connection.
+            req_RESP_str = RESPString(client_connection.recv(1024).decode()) # The server receives data from the client connection.
             
             formatted_response = get_cmd_response(req_RESP_str)
             
