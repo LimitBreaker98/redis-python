@@ -37,6 +37,8 @@ def process_connection(client_connection: socket):
             req_RESP_str = RESPString(client_connection.recv(1024).decode()) # The server receives data from the client connection.
             
             formatted_response = get_cmd_response(req_RESP_str)
+
+            print(r"{formatted_response}")
             
             
             client_connection.send(formatted_response.encode())
