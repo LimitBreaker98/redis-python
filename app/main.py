@@ -27,7 +27,7 @@ def get_cmd_response(req_RESP_str: RESPString):
     cmd = req_list[2]
 
     if cmd.lower() == "echo":
-        return req_RESP_str.partition(cmd)
+        return str(req_RESP_str).partition(cmd)
     elif cmd == "ping":
         return PING_RESP_STR
 
