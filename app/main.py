@@ -18,7 +18,7 @@ def process_connection(client_connection: socket):
             request_RESP_str = client_connection.recv(1024).decode() # The server receives data from the client connection.
             req_list = request_RESP_str.split("\r\n")
             print(req_list)
-            client_connection.send(RESP_STR.encode())
+            client_connection.send(PING_RESP_STR.encode())
         except ConnectionError:
             break
 
