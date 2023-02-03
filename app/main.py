@@ -21,7 +21,7 @@ class RESPString:
 
 PING_RESP_STR = RESPString("PONG").str_as_simple_string()
 
-def get_cmd_response(cmd, args, req_RESP_str):
+def get_cmd_response(req_RESP_str):
     req_list = req_RESP_str.bulk_str_to_list()
     cmd = req_list[2]
 
