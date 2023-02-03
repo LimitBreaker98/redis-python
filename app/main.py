@@ -7,17 +7,20 @@ import threading
 class RESPString:
     def __init__(self, s: str) -> None:
         self.s = s
-    def as_simple_string(self) -> str:
+    def str_as_simple_string(self) -> str:
         return f"+{self.s}\r\n"
+    def bulk_str_to_list(self):
+        return self.s.split("\r\n")
 
-PING_RESP_STR = RESPString("PONG").as_simple_string()
+PING_RESP_STR = RESPString("PONG").str_as_simple_string()
 
 def process_connection(client_connection: socket):
     while True:
         try:
-            request_RESP_str = client_connection.recv(1024).decode() # The server receives data from the client connection.
-            req_list = request_RESP_str.split("\r\n")
-            print(req_list)
+            request_RESP_str = RESPString(client_connection.recv(1024).decode()) # The server receives data from the client connection.
+            req_list = request_RESP_str.bulk_str_to_list()
+            cmd, args = req_list[0], req_list[1:]
+            print(cmd, args)
             client_connection.send(PING_RESP_STR.encode())
         except ConnectionError:
             break
